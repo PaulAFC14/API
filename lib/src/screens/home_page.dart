@@ -51,9 +51,16 @@ class _HomePageState extends State<HomePage> {
                       autoPlayInterval: Duration(seconds: 2)),
                   itemCount: 3,
                   itemBuilder: (context, index, realIndex) {
-                    return PromoCard(context).Home(vh, vw, user, '');
+                    return PromoCard(context).Home(vh, vw, user, index+1);
                   },
                 ),
+
+                /*FutureBuilder(
+                  future: Stock(user).getCategories(),
+                  builder: (context, snapshot) {
+                    return Text('${snapshot.data}');
+                  },
+                )*/
               ],
             ),
           ),

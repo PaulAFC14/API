@@ -1,15 +1,17 @@
 import 'dart:math';
 
+import 'package:aco/src/reusable/objects/stock.dart';
 import 'package:aco/src/reusable/widgets/roundedButton.dart';
 import 'package:flutter/material.dart';
 
+import '../objects/product.dart';
 import '../objects/user.dart';
 
 class PromoCard{
   late BuildContext context;
   PromoCard(this.context);
 
-  Widget Home(double vh, double vw, User user, String link){
+  Widget Home(double vh, double vw, User user, int index){
     Random random = Random();
     late int randomNumber = random.nextInt(66) + 10;
 
@@ -75,7 +77,7 @@ class PromoCard{
                       width: 40*vw,
                       height: 22.9*vh,
                       color: Theme.of(context).backgroundColor,
-                      child: Center(child: Text('ImageProduct'),),
+                      child: FutureImg(user, index)
                     )
                   ],
                 ),
@@ -87,6 +89,28 @@ class PromoCard{
     
       ),
     );
+  }
+  
+  FutureBuilder FutureImg(User user, int index){
+    
+
+    return FutureBuilder<Product>(
+      future: Stock(user).getSpecificProduct(index),
+      builder: (context, AsyncSnapshot<Product> snapshot) {
+        if(snapshot.hasData){
+          
+          return Image.network(
+            snapshot.data!.getCover(),
+            fit: BoxFit.cover,
+          );
+          
+        }else{
+          return CircularProgressIndicator();
+        }
+
+      },
+    );
+
   }
 
 }

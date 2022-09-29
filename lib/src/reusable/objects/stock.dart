@@ -5,19 +5,16 @@ import 'dart:convert' show json, utf8;
 
 class Stock {
   late User user;
-  List<Product> products =[];
 
   Stock(this.user){
-    fillStock();
   }
   
 
-  Future<void> callSpecificProduct(int index) async{
+  Future<Product> getSpecificProduct(int index) async{
     String token = 'Bearer ' + user.getToken();
 
     var headers = {
       'Authorization': token,
-      'Cookie': 'XSRF-TOKEN=eyJpdiI6Ims5TUhOajB2VlV4Q000QXlXSTMyVFE9PSIsInZhbHVlIjoiV1pmZ2pyZmpzRXBSaUx0MHZJZWloY3VJTUNUK0djQmNOY1ZwbWptSHF4c291WFhkUGthREpSTEFoMXcxdzhNaEpidGdWUzVqeTJ4am5uT0l0c0lEc1FKOTdoc2VXSVU2N0ptUVBVQ3N0bHZ3N0hsaW1aWWh1ZGdhUkQ1V1hMeHoiLCJtYWMiOiIzNWEzZTE0MGZlZTQ1MTJlMTY4M2NhM2ZmZjg5MzZjMjFiYzA1YzcxYmIzYmMwYmMzMDBhNDE2ZmRhMDFkOTA2IiwidGFnIjoiIn0%3D; laravel_session=eyJpdiI6IndJNThxSUNLUkg1VmttRlh1bkRtY1E9PSIsInZhbHVlIjoiUU80QmkzYjN6M1NFdlYrdVE5a1VKOGhzY3ZENFk2K0dCaXpQdWJsWWoyeDBReTZuR3c3bUh0N2VuWGZrM1FhM2pEVDRoREdzeWczc0creHdJWlo4N3BzQnArNEZKTFY5VWNwVndVd0lnbFMzSGxTQll3VzYxbUN3RUkwMm4zRTEiLCJtYWMiOiI3MGU5MGQ2YzZkYTlkNjk5NzRkYzc2OGEyZmQ5ZWVjMzcyNDA4ZTlkZGVkNWFjNDM1MTg1ZGQ3NTFkYjdhOWQ0IiwidGFnIjoiIn0%3D'
     };
     var request = http.Request('GET', Uri.parse('https://crud.jonathansoto.mx/api/products/' + index.toString()));
 
@@ -41,7 +38,7 @@ class Stock {
 
       Product product = Product(id: id, name: name, cover: cover, description: description, features: features, brand: brand, category: category, presentations: presentations);
       
-      products.add(product);
+      return product;
 
     }
     else {
@@ -50,22 +47,38 @@ class Stock {
     }
 
   }
-  
-  void fillStock() {
-    for(int i = 1; i < 4; i ++){
-      callSpecificProduct(i);
+
+
+  Future<String> getCategories() async{
+    List<Product> products = [];
+
+    for(int i = 1; i < 31; i++){
+      if(i != 25){
+        Product product = await getSpecificProduct(i);
+        products.add(product);
+    
+      }
     }
 
-    print("CANTIDAD ${products.length}");
     for(int i = 0; i < products.length; i++){
-      print(products[i].getName());
+      
     }
+
+
+
+    return '${products.length} ';
+    
+
+    
+
   }
 
-  Product getProduct(int index){
-    return products[index];
+  test(){
+    getCategories();
   }
   
+  
+
   
 
 }

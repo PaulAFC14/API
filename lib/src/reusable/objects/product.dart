@@ -50,12 +50,20 @@ class Product {
     return brand['id'];
   }
 
+  dynamic getBrand(){
+    return brand;
+  }
+
   String getBrandName(){
     return brand['name'];
   }
 
   String getBrandDescription(){
     return brand['description'];
+  }
+
+  dynamic getCategory(){
+    return category;
   }
 
   int getCategoryId(){
@@ -85,7 +93,8 @@ class Product {
   String getAmount(){
     return presentations['amount'];
   }
-
-
   
 }
+
+
+
