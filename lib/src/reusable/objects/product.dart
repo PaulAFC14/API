@@ -47,7 +47,7 @@ class Product {
   }
 
   int getBrandId(){
-    return brand['id'];
+    return brand[0]['id'];
   }
 
   dynamic getBrand(){
@@ -55,11 +55,11 @@ class Product {
   }
 
   String getBrandName(){
-    return brand['name'];
+    return brand[0]['name'];
   }
 
   String getBrandDescription(){
-    return brand['description'];
+    return brand[0]['description'];
   }
 
   dynamic getCategory(){
@@ -67,15 +67,15 @@ class Product {
   }
 
   int getCategoryId(){
-    return category['id'];
+    return category[0]['id'];
   }
 
   String getCategoryName(){
-    return category['name'];
+    return category[0]['name'];
   }
 
   String getCategoryDescription(){
-    return category['description'];
+    return category[0]['description'];
   }
 
   int getStock(){

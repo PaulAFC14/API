@@ -98,7 +98,6 @@ class PromoCard{
       future: Stock(user).getSpecificProduct(index),
       builder: (context, AsyncSnapshot<Product> snapshot) {
         if(snapshot.hasData){
-          
           return Image.network(
             snapshot.data!.getCover(),
             fit: BoxFit.cover,

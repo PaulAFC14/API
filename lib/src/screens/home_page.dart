@@ -4,6 +4,8 @@ import 'package:aco/src/reusable/widgets/axisError.dart';
 import 'package:aco/src/reusable/widgets/bottomNavBar.dart';
 import 'package:aco/src/reusable/widgets/headers.dart';
 import 'package:aco/src/reusable/widgets/promoCard.dart';
+import 'package:aco/src/reusable/widgets/roundedButton.dart';
+import 'package:card_swiper/card_swiper.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -29,7 +31,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Stock myStock = Stock(user);
 
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
@@ -49,18 +50,37 @@ class _HomePageState extends State<HomePage> {
                       viewportFraction: 1,
                       autoPlay: true,
                       autoPlayInterval: Duration(seconds: 2)),
-                  itemCount: 3,
+                  itemCount: 30,
                   itemBuilder: (context, index, realIndex) {
                     return PromoCard(context).Home(vh, vw, user, index+1);
                   },
                 ),
 
-                /*FutureBuilder(
-                  future: Stock(user).getCategories(),
-                  builder: (context, snapshot) {
-                    return Text('${snapshot.data}');
+                FutureBuilder<List<dynamic>>(
+                  future: Stock(user).getAllProducts(),
+                  builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
+                    if(snapshot.hasData){
+                      return Container(
+                        height: 20*vh,
+                        child: Swiper(
+                          viewportFraction: 0.36,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            return Text('${snapshot.data![index]['id']}');
+                          },
+                        ),
+                      );
+                    }else{
+                      return CircularProgressIndicator();
+                    }
+
                   },
-                )*/
+                )
+
+
+                
+               
+                
               ],
             ),
           ),
@@ -70,6 +90,23 @@ class _HomePageState extends State<HomePage> {
       return AxisError(context).Build();
     }
   }
+  
+  Widget pageButton(String category) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    double vh = height / 100;
+    double vw = width / 100;
+
+    return WinRoundedButton(
+      backgroundColor: Theme.of(context).primaryColor, 
+      color: Colors.white, 
+      txt: category, 
+      height: 10*vh,
+      width: 33*vw);
+
+  }
+  
+  
 
   
 }
