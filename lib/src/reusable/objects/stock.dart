@@ -1,4 +1,4 @@
-import 'package:aco/src/reusable/objects/product.dart';
+/*import 'package:aco/src/reusable/objects/product.dart';
 import 'package:aco/src/reusable/objects/user.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' show json, utf8;
@@ -256,4 +256,4 @@ class Stock {
 
     return categories;
   }*/
-}
+}*/

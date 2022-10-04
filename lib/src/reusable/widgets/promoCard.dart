@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:aco/src/reusable/objects/my_stock.dart';
 import 'package:aco/src/reusable/objects/stock.dart';
 import 'package:aco/src/reusable/widgets/roundedButton.dart';
 import 'package:flutter/material.dart';
@@ -77,7 +78,7 @@ class PromoCard{
                       width: 40*vw,
                       height: 22.9*vh,
                       color: Theme.of(context).backgroundColor,
-                      child: FutureImg(user, index)
+                      child: FutureImg(user, index, 40*vw, 22.9*vh)
                     )
                   ],
                 ),
@@ -91,20 +92,38 @@ class PromoCard{
     );
   }
   
-  FutureBuilder FutureImg(User user, int index){
+  FutureBuilder FutureImg(User user, int index, double wd, double hg){
     
 
-    return FutureBuilder<Product>(
-      future: Stock(user).getSpecificProduct(index),
-      builder: (context, AsyncSnapshot<Product> snapshot) {
+    return FutureBuilder<List<Product>>(
+      future: MyStock(user).getAllProducts(),
+      builder: (context, AsyncSnapshot<List<Product>> snapshot) {
         if(snapshot.hasData){
           return Image.network(
-            snapshot.data!.getCover(),
+            snapshot.data![index].getCover(),
             fit: BoxFit.cover,
           );
           
         }else{
-          return CircularProgressIndicator();
+
+          return Container(
+            height: hg,
+            width: wd,
+            padding: EdgeInsets.all(hg/20),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [
+                  Theme.of(context).backgroundColor,
+                  Colors.white,
+                ]
+              )
+            ),
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          );
         }
 
       },

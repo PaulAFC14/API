@@ -1,3 +1,5 @@
+import 'package:aco/src/reusable/objects/categories.dart';
+import 'package:aco/src/reusable/objects/my_stock.dart';
 import 'package:aco/src/reusable/objects/product.dart';
 import 'package:aco/src/reusable/objects/stock.dart';
 import 'package:aco/src/reusable/widgets/axisError.dart';
@@ -44,6 +46,10 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.symmetric(horizontal: 5 * vw, vertical: 5 * vw),
             child: ListView(
               children: <Widget>[
+
+
+
+                
                 //CARROUSEL DE PUBLICIDAD
                 CarouselSlider.builder(
                   options: CarouselOptions(
@@ -53,18 +59,19 @@ class _HomePageState extends State<HomePage> {
                       autoPlayInterval: Duration(seconds: 2)),
                   itemCount: 3,
                   itemBuilder: (context, index, realIndex) {
-                    return PromoCard(context).Home(vh, vw, user, index + 1);
+                    return PromoCard(context).Home(vh, vw, user, index);
                   },
                 ),
 
                 SizedBox(
                   height: 2 * vh,
                 ),
-
+                
+                /*
                 //SWIPER DE CATEGORIAS
-                FutureBuilder<List<dynamic>>(
-                  future: Stock(user).getCats(),
-                  builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
+                FutureBuilder<List<Category>>(
+                  future: MyStock(user).getCategories(),
+                  builder: (context, AsyncSnapshot<List<Category>> snapshot) {
                     if (snapshot.hasData) {
                       return Container(
                         height: 5 * vh,
@@ -76,14 +83,14 @@ class _HomePageState extends State<HomePage> {
                               margin: EdgeInsets.symmetric(horizontal: 1 * vw),
                               child: WinRoundedButton(
                                       backgroundColor: pageController ==
-                                              snapshot.data![index]['id']
+                                              snapshot.data![index].getId()
                                           ? Theme.of(context).primaryColor
                                           : Theme.of(context).backgroundColor,
                                       color: pageController ==
-                                              snapshot.data![index]['id']
+                                              snapshot.data![index].getId()
                                           ? Colors.white
                                           : Colors.black,
-                                      txt: snapshot.data![index]['name'],
+                                      txt: snapshot.data![index].getName(),
                                       height: 5 * vh,
                                       width: 0)
                                   .TextButton(context,
@@ -96,19 +103,25 @@ class _HomePageState extends State<HomePage> {
                       int ciclo = 0;
 
                       return Container(
-                          height: 5 * vh,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(1 * vh),
-                              gradient: LinearGradient(
-                                  begin: Alignment.centerLeft,
-                                  end: Alignment.centerRight,
-                                  colors: [
-                                    Theme.of(context).backgroundColor,
-                                    Colors.white,
-                                  ])));
+                        height: 5 * vh,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(1 * vh),
+                          gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [
+                              Theme.of(context).backgroundColor,
+                              Colors.white,
+                            ]
+                          )
+                        )
+                      );
+
                     }
                   },
-                ),
+                ),*/
+
+
               ],
             ),
           ),
